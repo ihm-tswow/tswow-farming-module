@@ -132,24 +132,10 @@ export class Crop extends CellSystemTop {
                 .Name.enGB.set(`${displayName} Seeds`)
                 .DisplayInfo.set(1443)
                 .Requirements.Skill.set(FARMING.ID,5)
-                .Quality.WHITE.set().Spells.
-                    addMod(spell=>{spell
-                        .Spell.modRefCopy('farming-mod',`farming-plant-${id}`,
-                            (spell)=>spell
-                                .Name.enGB.set(`Plant ${displayName}`)
-                                .Description.enGB.set(`Plants a ${displayName}.`)
-                                .CastTime.setSimple(1000)
-                                .InterruptFlags.ON_MOVEMENT.set(true)
-                                .Priority.set(cropDataId)
-                                .Tags.add('farming-mod','plant-crop')
-                                .Visual.modRefCopy(visual=>{visual
-                                    .CastKit.modRefCopy(ck=>ck.Animation.KNEEL_END.set())
-                                    .PrecastKit.modRefCopy(pck=>pck
-                                        .Animation.KNEEL_LOOP.set()
-                                        .StartAnimation.KNEEL_START.set())
-                                }))
-                                .Trigger.ON_USE.set()
-                            })
+                .Quality.WHITE.set().Spells.addMod(spell=>{spell
+                    .Spell.set(plantSpell.ID)
+                    .Trigger.ON_USE.set()
+                })
 
         let crop = new Crop(cropDataId,displayName,stage0Go,stage1go,stage2go,stage0Growth,stage1Growth,plantSpell,item)
         crops.push(crop);
